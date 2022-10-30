@@ -1,22 +1,21 @@
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import React, { useEffect, useState } from 'react';
 import SkillTrackerServices from '../services/SkillTrackerServices';
 
-export default function SkillComponent(searchCriteria) {
+export default function SkillComponent({ handleSkillChange, skillValue, name, id }) {
 
     const [skills, setSkills] = useState([]);
-    const [skillValue, setSkillValue] = useState('');
 
-    /*useEffect(() => {
+    useEffect(() => {
         SkillTrackerServices.fetchAllSkill().then(res => {
             setSkills(res.data);
         })
-    }, [])*/
+    }, [])
 
-    useEffect(() => {
+    /*useEffect(() => {
         setSkills([
             {
                 "id": 1,
@@ -94,12 +93,9 @@ export default function SkillComponent(searchCriteria) {
                 "isTechSkill": "N"
             }
         ]);
-    }, [])
+    }, [])*/
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setSkillValue(event.target.value);
-        searchCriteria(event);
-    };
+
 
     return (
 
@@ -111,11 +107,13 @@ export default function SkillComponent(searchCriteria) {
                 value={skillValue}
                 label="Skill to Search"
                 name="skill"
-                onChange={handleChange}
+                onChange={handleSkillChange}
+                disabled={name !== '' || id !== ''}
             >
-                {skills.map(s => (
+                <MenuItem key={'Skill To Search'} value={''}>{'Skill To Search'}</MenuItem>
+                {skills.length ? skills.map(s => (
                     <MenuItem key={s.id} value={s.skill}>{s.skill}</MenuItem>
-                ))}
+                )) : 'Skill list service not available'}
 
             </Select>
         </FormControl>

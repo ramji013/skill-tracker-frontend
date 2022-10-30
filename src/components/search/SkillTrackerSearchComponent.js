@@ -13,8 +13,11 @@ export default function SkillTrackerSearchComponent() {
     const [searchValue, setSearchValue] = useState('');
     const [accessToken, setAccessToken] = useState('');
     const [employeeData, setEmployeeData] = useState('');
+    const [name, setName] = useState('');
+    const [id, setId] = useState('');
+    const [skillValue, setSkillValue] = useState('');
 
-    /*const searchEmployee = () => {
+    const searchEmployee = () => {
         SkillTrackerServices.getToken().then(res => {
             setAccessToken(res.data.access_token);
         }).then(
@@ -25,59 +28,73 @@ export default function SkillTrackerSearchComponent() {
                 }
             )
         );
-    }*/
-
-
-    const searchEmployee = () => {
-        setEmployeeData([
-            {
-                "id": "3c996d23-8b2c-4b77-aacd-253776f9c530",
-                "name": "test12",
-                "email": "test@gmail.com",
-                "mobile": "23659756343",
-                "associateId": "CTS12321343",
-                "createdAt": "2022-10-26T23:18:53.000+00:00",
-                "modifiedAt": "2022-10-26T23:18:53.000+00:00",
-                "skills": [
-                    {
-                        "skill": "Spring Cloud",
-                        "skillLevel": 12
-                    },
-                    {
-                        "skill": "Spring Boot",
-                        "skillLevel": 10
-                    }
-                ]
-            }
-        ]);
     }
 
 
-    const enteredSearchCriteria = (event) => {
+    /* const searchEmployee = () => {
+         setEmployeeData([
+             {
+                 "id": "3c996d23-8b2c-4b77-aacd-253776f9c530",
+                 "name": "test12",
+                 "email": "test@gmail.com",
+                 "mobile": "23659756343",
+                 "associateId": "CTS12321343",
+                 "createdAt": "2022-10-26T23:18:53.000+00:00",
+                 "modifiedAt": "2022-10-26T23:18:53.000+00:00",
+                 "skills": [
+                     {
+                         "skill": "Spring Cloud",
+                         "skillLevel": 12
+                     },
+                     {
+                         "skill": "Spring Boot",
+                         "skillLevel": 10
+                     }
+                 ]
+             }
+         ]);
+     }*/
+    const handleNameChange = (event) => {
+        setName(event.target.value);
+        setSearchCriteria(event.target.name);
+        setSearchValue(event.target.value);
+    }
+    const handleIdChange = (event) => {
+        setId(event.target.value);
         setSearchCriteria(event.target.name);
         setSearchValue(event.target.value);
     }
 
+    const handleSkillChange = (event) => {
+        setSkillValue(event.target.value);
+        setSearchCriteria(event.target.name);
+        setSearchValue(event.target.value);
+    }
+
+
     return (
-        <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '100ch' }, }} noValidate autoComplete="off">
+        <Box component="form" className='pagedesign' noValidate autoComplete="off">
             <div className="elements">
-                Admin Panel
                 <div>
-                    <TextField id="standard-basic" label="Search By Associate Name" variant="standard" name="name" onChange={enteredSearchCriteria} />
+                    <h2>Admin Panel</h2>
+                </div>
+
+                <div>
+                    <TextField id="standard-basic" label="Search By Associate Name" variant="standard" name="name" value={name} onChange={handleNameChange} disabled={id !== '' || skillValue !== ''} />
                 </div>
                 <div>
-                    <TextField id="standard-basic" label="Search By Associate ID" variant="standard" name="id" onChange={enteredSearchCriteria} />
+                    <TextField id="standard-basic" label="Search By Associate ID" variant="standard" name="id" onChange={handleIdChange} disabled={name !== '' || skillValue !== ''} />
                 </div>
                 <div>
-                    <SkillComponent searchCriteria={enteredSearchCriteria} />
+                    <SkillComponent handleSkillChange={handleSkillChange} skillValue={skillValue} name={name} id={id} />
                 </div>
                 <div>
-                    <Button variant="outlined" onClick={searchEmployee}>Search</Button>
+                    <Button variant="outlined" onClick={searchEmployee} disabled={name === '' && id === '' && skillValue === ''}>Search</Button>
                 </div>
             </div>
-
-            <SkillTrackerResultComponent employee={employeeData} />
-
+            <div className="SkillTrackerTable">
+                <SkillTrackerResultComponent employee={employeeData} />
+            </div>
         </Box>
     );
 }

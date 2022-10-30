@@ -5,15 +5,28 @@
     margin-block: 12px;*/
 
 /*grid-auto-flow: row;*/
-padding: 10%;
-display: inline-flexbox;
+/* padding: 0 40px; */
+display: flex;
+padding: 20px 40px;
 justify-content: space-between;
-
-flex-wrap: wrap;
 background-color: bisque;
-width: 50%;
+}
+.elements > div {
+    display: inline-flex
+}
+.inline-elements {
+    display: inline-flex
 }
 
+.SkillTrackerTable {
+    display: flex;
+    padding: 20px 40px;
+    justify-content: space-between;
+}
+.pagedesign {
+    background-color: rgb(245, 239, 233);
+    height: 100vh;
+}
 .float-container {
     border: 3px solid #fff;
     padding: 20px;

@@ -13,31 +13,31 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-export default function SkillTrackerResultComponent(employee) {
+export default function SkillTrackerResultComponent({employee}) {
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead>
                     <TableRow>
                         <TableCell />
-                        <TableCell aligh="center">Name</TableCell>
-                        <TableCell align="center">Id</TableCell>
-                        <TableCell align="center">Email</TableCell>
-                        <TableCell align="center">Mobile</TableCell>
+                        <TableCell aligh="center"><th>Name</th></TableCell>
+                        <TableCell align="center"><th>Id</th></TableCell>
+                        <TableCell align="center"><th>Email</th></TableCell>
+                        <TableCell align="center"><th>Mobile</th></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
 
                     {employee.length ? employee.map(e => (
-                        <Row key={e.name} row={e} />
-                    )) : 'hello' + employee[0]}
+                        <Row key={e.name} employeeDetails={e} />
+                    )) : 'No data is available'}
                 </TableBody>
             </Table>
         </TableContainer>
     )
 }
 
-function Row(employee) {
+function Row({employeeDetails}) {
     const [open, setOpen] = React.useState(false);
 
     return (
@@ -53,11 +53,11 @@ function Row(employee) {
                     </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row">
-                    {employee.name}
+                    {employeeDetails.name}
                 </TableCell>
-                <TableCell align="right">{employee.id}</TableCell>
-                <TableCell align="right">{employee.email}</TableCell>
-                <TableCell align="right">{employee.mobile}</TableCell>
+                <TableCell align="right"><td>{employeeDetails.id}</td></TableCell>
+                <TableCell align="right"><td>{employeeDetails.email}</td></TableCell>
+                <TableCell align="right"><td>{employeeDetails.mobile}</td></TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -69,17 +69,17 @@ function Row(employee) {
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Skill</TableCell>
-                                        <TableCell>Skill Level</TableCell>
+                                        <TableCell><th>Skill</th></TableCell>
+                                        <TableCell><th>Skill Level</th></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {employee.skills.map((s) => (
+                                    {employeeDetails.skills.map((s) => (
                                         <TableRow key={s.skill}>
-                                            <TableCell component="th" scope="row">
-                                                {s.skill}
+                                            <TableCell scope="row">
+                                                <td>{s.skill}</td>
                                             </TableCell>
-                                            <TableCell>{s.skillLevel}</TableCell>
+                                            <TableCell><td>{s.skillLevel}</td></TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

@@ -1,11 +1,8 @@
+import React from 'react';
 import SkillTrackerSearchComponent from './components/search/SkillTrackerSearchComponent';
-import SkillComponent from './components/skill/SkillComponent';
-
 function App() {
   return (
-    <div>
       <SkillTrackerSearchComponent />
-    </div>
   );
 }
 
